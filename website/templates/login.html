@@ -1,0 +1,45 @@
+{% extends "base.html" %} {% block title %}Login{% endblock %} {% block content
+%}
+
+<div style="margin-left: 10%; margin-right: 10%;">
+<form method="POST">
+  <div class="rounded-top text-light" style="padding-top: 5px; padding-bottom: 5px; margin-top: 2%; margin-left: 2%; margin-right: 2%; background-color: rgb(46, 58, 77);" >
+  
+    <div  class="">
+        <h1 align="center" style="">Login</h1>
+    </div>
+  </div>
+
+  <div class="small-margin rounded-bottom" style="background-color: white;">
+  <div class="form-group" style="margin-left: 2%; margin-right: 2%;">
+    <br>
+    <label for="email"><b>Email Address</b></label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      value="{{ email }}"
+      name="email"
+      placeholder="Enter email"
+    />
+  </div>
+  <div class="form-group small-margin">
+    <br>
+    <label for="password"><b>Password</b></label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      value="{{ password }}"
+      name="password"
+      placeholder="Enter password"
+    />
+  </div>
+  <br>
+  <button type="submit" class="base-button small-margin block-colour4">Login</button>
+</br>
+<br>
+</form>
+</div>
+</div>
+{% endblock %}

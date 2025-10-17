@@ -1,0 +1,107 @@
+{% extends "base.html" %} {% block title %}Report Item{% endblock %} {% block content%}
+
+
+
+
+<div class="rounded-top text-light title-colour1" style="padding-top: 5px; padding-bottom: 5px; margin-top: 2%;" >
+
+    <div  class="">
+        <h1 align="center" style="font-weight: bold;">🗒️ Report Item </h1>
+    </div>
+
+</div>
+
+<!--Starting Grid-->
+<div class="container-fluid border rounded-bottom text-center " style="padding-bottom: 2%; padding-top: 2%; background-color: white;">
+
+
+
+    <div class="row text-center">
+
+        <div class="col-md-6 col-xs-12 fade-in">
+            <!--First Grid-->
+
+            <div class=" border border-dark rounded-top block-colour2" style="padding:15px;">
+                <a href="/reportlostitem" class="text-light btn hover-effect" style="width: 40%;">
+
+                    <div class="border border-white bg-danger" style=" padding: 10px;"><b>LOST</b></div>
+
+
+                    
+                    </a>
+            </div>
+
+            <div class=" border border-dark rounded-bottom" style="padding: 25px;">
+                Lost an item at MMU? Report it Here!
+            </div>
+
+            <div>
+                <img>
+            </div>
+           
+        </div>
+    
+        <div class="col-md-6 col-xs-12 fade-in">
+            <!--Second Grid-->
+
+            <div class=" border border-dark rounded-top block-colour3" style="padding: 15px;">
+                <a href="/reportfounditem" class="text-light btn hover-effect" style="width: 40%;">
+
+                    <div class="border border-white bg-success" style=" padding: 10px;"><b>FOUND</b></div>
+
+
+                    
+                    </a>
+            </div>
+
+            <div class=" border border-dark rounded-bottom" style="padding: 25px;">
+                Found someone else item at MMU? Report it here!
+            </div>
+
+            <div>
+                <img>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div class="fade-in">
+    <button id="showbutton" class="collapsible" onclick="toggleContent(this)"
+    style="width: 100%;"
+    >
+    <b>Tips</b>
+    <span class="arrow down"></span>
+    </button>
+
+    <div class="container-fluid text-left content" style="background-color: white;" >
+            <div class="">
+                <br>
+                <h4><b>I just found an item, what should i do?</b></h4><br>
+                <h6>Remember these 3 Things when you encounter an item!</h6><br>
+                <p>1. 📄 Specify any details regarding the item.</p>
+                <p>2. 🕵️ Look for any details of the owner's identity in the item.</p>
+                <p>3. 🗣️ Always confirm the lost item owner identity before returning it.</p>
+                <br>
+            </div>
+
+            <div class="">
+                <h4><b>I just lost my item, What should i do?</b></h4><br>
+                <h6>Remember The 3W when Reporting!</h6><br>
+                <p>1. 🤔 What? Any details that is special to your item? Say it!</p>
+                <p>2. ⏲️ When? At what time do you realise it's gone.</p>
+                <p>3. 🤷 Where? Try to remember and state where you last seen the item.</p>
+            </div>
+
+    </div>
+    </div>
+</div>
+
+</div>
+
+
+
+
+
+{% endblock %}

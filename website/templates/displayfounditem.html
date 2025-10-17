@@ -1,0 +1,70 @@
+{% extends "base.html" %} {% block title %}Display Found Item{% endblock %} {% block content
+    %}
+
+
+<div style="margin: 4%;">
+    <div class="rounded-top text-light block-colour3" style="padding-top: 5px; padding-bottom: 5px; margin-top: 2%;" >
+  
+        <div  class="">
+            <h1 align="center" style="">{{ thisfounditem.name }}</h1>
+        </div>
+    </div>
+
+
+    
+    <div class="container-fluid rounded-bottom border text-center" style="background-color: white; padding-bottom: 2%; margin-bottom: 2%;">
+        
+
+        <br>
+        <div>
+            {% if thisfounditem.image_file == "" %}
+            <img src="{{ replacementimage }}" class="img-fluid col-md-4" style="width: auto; height: auto;">
+            {% else %}
+            <img src="data:image/png;base64,{{thisfounditem.image_file.decode('utf-8')}}" class="img-fluid col-md-4" style="width: auto; height: auto;">
+            {% endif %}        
+        <div class="display">
+            <br>
+            <div class=" border-muted border-bottom">
+                <h5><b>📅Date Found:</b> {{ thisfounditem.date_found  }} </h5>      
+                <br>
+            </div>
+            <br>
+            <div class=" border-muted border-bottom">
+                <h5><b>📍Location:</b> {{ thisfounditem.location  }} </h5>
+                <br>
+            </div>
+            <br>
+            <div class=" border-muted border-bottom">
+                <h5><b>📰Reported By:</b> {{ userdatabase.query.filter_by(id=thisfounditem.user_id).first().first_name  }} ({{ userdatabase.query.filter_by(id=thisfounditem.user_id).first().contactinfo}})</h5>   
+                <br>
+            </div>
+            <br>
+            <div>
+                <h5><b>🖹Item Description:</b></h5>
+                </br>
+                <p class="description">{{ thisfounditem.description }}</p>
+            </div>
+            <br></br>
+
+            
+            <div align="center" style="margin: 2%;">
+                {% if user.first_name == userdatabase.query.filter_by(id=thisfounditem.user_id).first().first_name %}
+                <button type="submit" class="btn text-light hover-effect btn-danger" onClick="deleteFoundItem({{ thisfounditem.id }})">
+                    Delete Item
+                </button>
+                {% else %}
+                {% endif %}
+
+                {% if user.first_name == 'Admin' %} <!--If user is admin, they can delete any post-->
+                <button type="submit" class="btn text-light hover-effect btn-danger" onClick="deleteFoundItem({{ thisfounditem.id }})" style=" padding: 6px 8px;">Delete Item</button>
+                {% else %}
+                {% endif %}
+
+            </div>                
+
+
+        </div>  
+    </div>
+</div>   
+
+{% endblock %}

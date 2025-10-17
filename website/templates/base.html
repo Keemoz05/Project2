@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    h1 h2 h3 h4 h5 h6{
+        font-weight: bold;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    p{
+      font-family: 'Roboto', sans-serif;
+    }
+
+    div {
+      font-family: 'Roboto', sans-serif;
+
+    }
+        .fade-in {
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .fade-in.active {
+        opacity: 1;
+    }
+
+    .hover-effect:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .toggle {
+        cursor: pointer;
+    }
+    .toggle::after {
+        content: "\25BC"; /* Unicode for down arrow */
+        display: inline-block;
+        margin-left: 5px;
+    }
+    .expanded::after {
+        content: "\25B2"; /* Unicode for up arrow */
+    }
+    .title{
+      font-size: xx-large;
+      font-weight: bold;
+    }
+    .itemtitle{
+      font-size: x-large;
+      font-weight: bold;
+    }
+    .article{
+      display: inline-block;
+      margin:80px 0px 20px;
+      max-width: 400px;
+      width: 100%;
+      background: #db1e1e73;
+      padding: 30px;
+      border-radius: 30px;
+    }
+    .img-area{
+      position: relative;
+      width: 100%;
+      height: 240px;
+      background: var(--grey);
+      margin-bottom: 30px;
+      border-radius: 15px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .img-area .icon{
+      font-size: 23px;
+    }
+    .select-image{
+      display: block;
+      width: 100%;
+      padding: 16px;
+      border-radius: 15px;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: all, .3s ease;
+    }
+    .select-image:hover::before{
+      opacity: 1;
+    }
+    .collapsible {
+            background-color: white;
+            color:black;
+            cursor: pointer;
+            padding: 10px;
+            width: 200px;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .collapsible:hover {
+            background-color: lightgray;
+        }
+
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #f1f1f1;
+        }
+
+        .arrow {
+            border: solid black;
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 3px;
+            transition: transform 0.3s;
+        }
+
+        .arrow.down {
+            transform: rotate(45deg);
+        }
+
+        .arrow.up {
+            transform: rotate(-135deg);
+        }
+        .button-check {
+          background-color: rgb(46, 58, 77);
+          color: #f1f1f1;
+          padding-left: 10%;
+          padding-right: 10%;
+          border-radius: 5%;
+
+        }
+        .display {
+          text-align: justify;
+          margin-left: 10%;
+          margin-right: 10%;
+          margin-top: 1%;
+          
+        }
+        .description{
+          font-size: x-large;
+        }
+        .small-margin{
+          margin-left: 2%;
+          margin-right: 2%;
+        }
+        .fixed{
+          resize: none;
+        }
+        .back-colour{
+          background-color: white ;
+        }
+        .block-colour{
+          background-image: linear-gradient(to right, rgba(121,159,203,255) , rgba(189,180,255,255));
+        }
+        .title-colour{
+          background-color: rgba(149,180,204,255);
+        }
+        .title-colour1{
+          background-color: rgba(173,162,255,255);
+        }
+        .title-colour3{
+          background-color: rgba(238,105,105,255);
+        }
+        .block-colour2{
+          background-color: rgba(253,170,170,255);
+        }
+        .block-colour3{
+          background-color: rgba(184,216,190,255);
+        }
+        .bold-colour{
+          color: rgba(254,44,84,255);
+        }
+        .bold-colour1{
+          color:rgba(2,192,60,255) ;
+        }
+        .block-colour4{
+          background-color: rgb(46, 58, 77);
+        }
+        .base-button{
+          color: white;
+          padding: 6px 12px;
+          border-radius: 5px;
+        }
+        .base-button:hover{
+          
+        }
+        .bb{
+          text-decoration: none;
+          font-weight: bold;
+          font-size: x-large;
+          color: white;
+        }
+        .closing-button{
+          margin-top: 3%;
+          margin-left: 4%;
+        }
+
+
+  </style>
+
+
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+    <link 
+    rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" 
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap" 
+    rel="stylesheet">
+
+
+    <title>{% block title %}Home{% endblock %}</title>
+  </head>
+  <body style="background-color: rgba(211, 211, 211, 0.4); ">
+<nav class="navbar navbar-expand-lg navbar-dark block-colour" >
+  <div class="collapse navbar-collapse" id="navbar" style="font-family: Arial, Helvetica, sans-serif; font-weight: bold;">
+    <div class="">
+      {% if user.is_authenticated %}
+      <a class="bb" id="home" href="/" style="text-decoration: none;">🏠Home</a>
+      <a class="bb" id="reportitem" href="/reportitem" style="text-decoration: none;">🗒️Report Item</a>
+      <a class="bb" id="user-settings" href="/user-settings" style="text-decoration: none;">👤User</a>
+      {% else %}
+      <a class="nav-item navbar-brand ml-auto" id="login" href="/login">Login</a>
+      <a class="nav-item navbar-brand" id="signUp" href="/sign-up">Sign Up</a>
+      {% endif %}
+    </div>
+    <div class=" ml-auto">
+      {% if user.is_authenticated %}
+      <a class="nav-item navbar-brand hover-effect" onclick="logoutConfirmation()" id="logout" href="#">🚪Logout</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+    <!--<div style="padding-top: 5px; margin: 0%; background-color: red;"></div> -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+
+    <div class="container">{% block content %} {% endblock %}</div>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      // JavaScript to add fade-in animation
+      document.addEventListener("DOMContentLoaded", function() {
+          var elements = document.querySelectorAll('.fade-in');
+          for (var i = 0; i < elements.length; i++) {
+              elements[i].classList.add('active');
+          }
+      });
+  </script>
+<script>
+  function logoutConfirmation(){
+    if (confirm("Are you sure want to log out?")) {
+      window.location.href = "/logout";  
+    } 
+    else 
+    {
+
+  }
+  }
+</script>
+<script>
+  //javascript for collapsable button
+  function toggleContent(button) {
+      var content = button.nextElementSibling;
+      var arrow = button.querySelector('.arrow');
+      if (content.style.display === "block") {
+          content.style.display = "none";
+          arrow.classList.remove('up');
+          arrow.classList.add('down');
+      } else {
+          content.style.display = "block";
+          arrow.classList.remove('down');
+          arrow.classList.add('up');
+      }
+  }
+</script>
+<!--script>
+  //opens the report item by default
+  window.addEventListener('load', (event) => {
+    toggleContent(document.getElementById("showbutton"))});
+</script -->
+
+
+{% block javascript %}
+<script type="text/javascript">
+
+  function deleteLostItem(lostitemid) {
+  if(confirm("Are you sure want to delete the lost item?")){
+  fetch("/delete-lostitem", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ lostitemid: lostitemid }),
+  }).then(response => {
+    if (response.ok){
+      alert("Lost item deleted successfully!")
+    window.location.href = "/"; ///user-settings
+  } else {}
+  })
+  .catch(error =>{
+    console.error("Error:",error);
+    alert("An error occured while deleting the lost item")
+  });
+ }
+}
+
+function deleteFoundItem(founditemid) {
+  if(confirm("Are you sure want to delete the found item?")){
+  fetch("/delete-founditem", {
+    method: "POST",
+    headers:{
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ founditemid: founditemid }),
+  })
+  .then(response => {
+    if (response.ok){
+      alert("Found item deleted successfully!")
+    window.location.href = "/"; ///user-settings
+  } else{}
+  })
+  .catch(error =>{
+    console.error("Error:",error);
+    alert("An error occured while deleting the found item")
+  });
+ }
+}
+</script>
+
+<script>
+  // This is the javascript to preview 
+  function previewImage(){
+    const preview = document.getElementById('previewImg');
+    const file = document.getElementById('fileInput').files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener('load', function(){
+      preview.src = reader.result;
+      preview.style.display = 'block';
+      }, false);
+
+      if (file){
+        reader.readAsDataURL(file);
+      }
+    }
+
+</script>
+
+{% endblock %}
+  </body>
+</html>

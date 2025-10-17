@@ -1,0 +1,69 @@
+{% extends "base.html" %} {% block title %}Display Lost Item{% endblock %} {% block content
+    %}
+
+
+    <div style="margin: 4%;">
+        <div class="rounded-top text-light block-colour2" style="padding-top: 5px; padding-bottom: 5px; margin-top: 2%;" >
+      
+            <div  class="">
+                <h1 align="center" style="">{{ thislostitem.name }}</h1>
+            </div>
+        </div>
+    
+    
+        
+        <div class="container-fluid rounded-bottom border text-center" style="background-color: white; padding-bottom: 2%; margin-bottom: 2%;">
+            
+    
+            <br>
+            <div>
+                {% if thislostitem.image_file == "" %}
+                <img src="{{ replacementimage }}" class="img-fluid col-md-4" style="width: auto; height: auto;">
+                {% else %}
+                <img src="data:image/png;base64,{{thislostitem.image_file.decode('utf-8')}}" class="img-fluid col-md-4" style="width: auto; height: auto;">
+                {% endif %}            
+            <div class="display">
+                <br>
+                <div class=" border-muted border-bottom">
+                    <h5><b>📅Date Lost:</b> {{ thislostitem.date_lost  }} </h5>      
+                    <br>
+                </div>
+                <br>
+                <div class=" border-muted border-bottom">
+                    <h5><b>📍Location:</b> {{ thislostitem.location  }} </h5>
+                    <br>
+                </div>
+                <br>
+                <div class=" border-muted border-bottom">
+                    <h5><b>📰Reported By:</b> {{ userdatabase.query.filter_by(id=thislostitem.user_id).first().first_name  }} ({{ userdatabase.query.filter_by(id=thislostitem.user_id).first().contactinfo}})</h5>   
+                    <br>
+                </div>
+                <br>
+                <div>
+                    <h5><b>🖹Item Description:</b></h5>
+                    </br>
+                    <p class="description">{{ thislostitem.description }}</p>
+                </div>
+                    
+
+            
+            <div align="center" style="margin: 2%;">
+                {% if user.first_name == userdatabase.query.filter_by(id=thislostitem.user_id).first().first_name %}
+                <button type="submit" class="btn text-light hover-effect btn-danger" onClick="deleteLostItem({{ thislostitem.id }})">
+                    Delete Item
+                </button>
+                {% endif %} 
+
+                {% if user.first_name == 'Admin' %} <!--If user is admin, they can delete any troll post-->
+                <button type="button" class="btn btn-danger text-light"
+                onClick="deleteLostItem({{ thislostitem.id }})" style=" padding: 6px 8px;">Delete Item
+                  <span aria-hidden="true"></span>
+                </button>
+                {% endif %}
+
+            
+            </div>                
+            </div>  
+        </div>
+    </div>  
+{% endblock %}

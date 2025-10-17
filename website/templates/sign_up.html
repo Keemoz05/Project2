@@ -1,0 +1,84 @@
+{% extends "base.html" %} {% block title %}Sign Up{% endblock %} {% block
+content %}
+
+<div style="margin-left: 10%; margin-right: 10%;">
+<form method="POST">
+  <div class="rounded-top text-light" style="padding-top: 5px; padding-bottom: 5px; margin-top: 2%; margin-left: 2%; margin-right: 2%; background-color: rgb(46, 58, 77);" >
+  
+    <div  class="">
+        <h1 align="center" style="">Sign Up</h1>
+    </div>
+  </div>
+
+
+  <div class="small-margin rounded-bottom" style="background-color: white;">
+  <br>
+  <div class="form-group small-margin">
+    <label for="email"><b>Email Address</b></label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      value="{{ email }}"
+      name="email"
+      placeholder="Enter email"
+    />
+  </div>
+  <br>
+  <div class="form-group small-margin">
+    <label for="firstName"><b>First Name</b></label>
+    <input
+      type="text"
+      class="form-control"
+      value="{{ first_name }}"
+      id="firstName"
+      name="firstName"
+      placeholder="Enter first name"
+    />
+  </div>
+  <br>
+  <div class="form-group small-margin">
+    <label for="password1"><b>Password</b></label>
+    <input
+      type="password"
+      class="form-control"
+      value="{{ password1 }}"
+      id="password1"
+      name="password1"
+      placeholder="Enter password"
+    />
+  </div>
+  <br>
+  <div class="form-group small-margin">
+    <label for="password2"><b>Password (Confirm)</b></label>
+    <input
+      type="password"
+      class="form-control"
+      value="{{ password2 }}"
+      id="password2"
+      name="password2"
+      placeholder="Confirm password"
+    />
+  </div>
+  <br>
+  <div class="form-group small-margin">
+    <label for="contactinfo"><b>How do you want people to contact you?</b></label>
+    <input
+      type="text"
+      class="form-control"
+      value="{{ contactinfo }}"
+      id="contactinfo"
+      name="contactinfo"
+      placeholder="Your phone number,email,Discord username, etc.."
+    />
+  </div>
+  <br>
+  <button type="submit" class="base-button small-margin block-colour4">Sign Up</button>
+  <br>
+  <br>
+</div>
+</form>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,191 @@
+{% extends "base.html" %} 
+{% block title %}
+Home
+{% endblock %} 
+{% block content %}
+
+
+<div class="rounded-top text-light title-colour" style="padding-top: 5px; padding-bottom: 5px; margin-top: 2%;" >
+  
+    <div  class="">
+        <h1 align="center" style="font-weight: bold;">🏠 Home</h1>
+    </div>
+  </div>
+  
+<div class="container-fluid rounded-bottom border text-center back-colour" style="padding-bottom: 2%; margin-bottom: 2%;">
+    <div class="row back-colour" >
+       <div class="col-md-12 mb-4">
+        <br>
+        <form class="form-inline" action="/" method='POST'>
+          <input class ="form-control col-11"
+            type="search"
+            id="search"
+            name="search"
+            placeholder="Search item name 🔍"
+            aria-label="Search"
+          /><button type="submit" class="block-colour4 base-button ">Search</button>
+        </form>
+       
+        <!--This function is the result after user has given an input in the search bar, just copy and paste from the found and lost grid codes but added jinja for req_search--> 
+        {% if req_search is not none %}
+            <ul class="list-group list-group-flush">
+                {% for item in req_search %}
+                <div class="lost-item-container hover-effect rounded border border-dark" style="margin-bottom: 1%; background-color: white;">
+                    <div class="row">
+                        {% if item.image_file == "" %}
+                        <img src="{{ replacementimage }}" class="img-fluid col-md-4" style="width: auto; height: auto;">
+                        {% else %}
+                        <img src="data:image/png;base64,{{item.image_file.decode('utf-8')}}" class="img-fluid col-md-4" style="width: auto; height: auto;">
+                        {% endif %}
+                        <li class="list-group-item col-md-5 text-left">
+                            <b class="bold-colour">Item: </b> {{item.name}}
+                            </br>
+                            <b class="bold-colour">Location:</b>
+                            </br>
+                            {{ item.location }}
+                            </br>
+                            <b class="bold-colour">Reported By:</b>
+                            </br>
+                            {% if user.first_name == userdatabase.query.filter_by(id=item.user_id).first().first_name %}
+                            <p><b>Me</b></p>
+                            {% else %}
+                            {{userdatabase.query.filter_by(id=item.user_id).first().first_name}}
+                            {% endif %}
+                        </li>
+                        <div class="col-md-2" style="margin-top: 5%; margin-bottom: 5%; z-index: 1;">
+                            <button class="button-check" onclick="window.location.href='/lostitem/{{item.id}}';">View Item</button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </ul>
+            {% else %}
+            NONE
+            {% endif %}
+        </div>
+
+        <div class="col-md-6 col-xs-12 " style="padding-bottom: 2%;">
+          <!--Grid for Lost Item-->
+    
+          <div class="  ">
+            <h4  class="border border-dark rounded-top text-light fade-in block-colour2" style=" padding-bottom: 4px; margin-bottom: 0%; margin-top: 2%;">Lost Items</h4>
+          
+          </div>
+    
+    
+          <div class="fade-in" style=" margin-top: 0%;">
+            <ul class="list-group list-group-flush" id="notes">
+              {% for x in lostitem %}
+              <div class="lost-item-container hover-effect rounded border border-dark" style="margin-bottom: 1%; background-color: white;">
+              <div class="row" >
+                {% if x.image_file == "" %}
+                <img src="{{ replacementimage }}" class="img-fluid col-md-4" style="width: auto; height: auto;">
+                {% else %}
+                <img src="data:image/png;base64,{{x.image_file.decode('utf-8')}}" class="img-fluid col-md-4" style="width: auto; height: auto;">
+                {% endif %}              <li class="list-group-item col-md-5">
+  
+              <b class="bold-colour">Item: </b> {{x.name}}  <!-- place lostitem,data here-->
+              </br>  
+              <b class="bold-colour">Location:</b>
+              </br>
+              {{ x.location }}
+            </br>
+              <b class="bold-colour">Reported By:</b>
+             <br>
+             {% if user.first_name == userdatabase.query.filter_by(id=x.user_id).first().first_name %}
+
+             <p><b>Me</b></p>
+             {%  else  %}
+             {{userdatabase.query.filter_by(id=x.user_id).first().first_name}} 
+             {%  endif  %} 
+            </li>
+
+             <!--Button for directing to the next page. Only edit content inside div-->
+            <div class="col-md-2 " style="margin-top: 5%; margin-bottom: 5%; z-index: 1;">
+              <button class="button-check" onclick="window.location.href='/lostitem/{{x.id}}';">View Item</button>
+ 
+              {% if user.first_name == 'Admin' %} <!--If user is admin, they can delete any troll post-->
+              <button type="button" class="btn btn-danger text-light"
+              onClick="deleteLostItem({{ x.id }})" style=" padding: 6px 8px;">Delete
+                <span aria-hidden="true"></span>
+              </button>
+              {% else %}
+              {% endif %}
+
+            </div>
+            <!--Button to delete content(FUTURE/NO)-->
+
+              </div>
+            </div>
+              
+              {% endfor %}
+            </ul>
+          </div>
+    
+      
+        </div>
+    
+    
+    
+        <div class="col-md-6 col-xs-12 ">
+          <!--Grid for Found Item-->
+    
+          <div>
+            <h4 class="border border-dark rounded-top text-light fade-in block-colour3" style=" padding-bottom: 4px; margin-bottom: 0%; margin-top: 2%;">Found Items</h4>
+          </div>
+    
+          <div class="fade-in" style="margin-top: 0%;">
+            <ul class="list-group list-group-flush" id="notes">
+                {% for y in founditem %}
+              <div class="lost-item-container hover-effect rounded border border-dark" style="margin-bottom: 1%; background-color: white;">
+              <div class="row">
+                {% if y.image_file == "" %}
+                <img src="{{ replacementimage }}" class="img-fluid col-md-4" style="width: auto; height: auto;">
+                {% else %}
+                <img src="data:image/png;base64,{{y.image_file.decode('utf-8')}}" class="img-fluid col-md-4" style="width: auto; height: auto;">
+                {% endif %}              <li class="list-group-item col-md-5">
+
+              <b class="bold-colour1">Item: </b> {{y.name}}  <!-- place lostitem,data here-->
+              </br>  
+              <b class="bold-colour1">Location:</b>
+              </br>
+              {{ y.location }}
+            </br>
+              <b class="bold-colour1">Reported By:</b>
+              </br>
+             
+             {% if user.first_name == userdatabase.query.filter_by(id=y.user_id).first().first_name %}
+
+             <p><b>Me</b></p>
+             {%  else  %}
+
+             {{userdatabase.query.filter_by(id=y.user_id).first().first_name}}
+             {%  endif  %} 
+              </li>
+
+            <!--Button for directing to the next page. Only edit content inside div-->
+            <div class="col-md-2" style="margin-top: 5%; margin-bottom: 5%; z-index: 1;">
+              <button class="button-check" onclick="window.location.href='/founditem/{{y.id}}';">View Item</button>
+            
+              {% if user.first_name == 'Admin' %} <!--If user is admin, they can delete any troll post-->
+              <button type="button" class="btn btn-danger text-light"
+              onClick="deleteFoundItem({{ y.id }})" style=" padding: 6px 8px;">Delete
+                <span aria-hidden="true"></span>
+              </button>
+              {% else %}
+              {% endif %}
+
+            </div>
+            <!--Button to delete content(FUTURE/NO)-->
+            </div>
+            </div>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+    
+    
+        </div>
+</div>
+
+{% endblock %}

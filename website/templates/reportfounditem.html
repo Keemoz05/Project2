@@ -1,0 +1,63 @@
+{% extends "base.html" %} {% block title %}Report Found Item{% endblock %} {% block content
+  %}
+
+<div class="rounded-top text-light block-colour3" style="padding-top: 5px; padding-bottom: 5px; margin-top: 2%;" >
+
+<div  class="">
+  <h1 align="center" style="">Report Found Item </h1>
+</div>
+</div>
+
+<div class="container-fluid rounded-bottom border" style="background-color: white; padding-top: 2%; margin-bottom: 2%;">
+
+
+<div>
+  <form method="POST" enctype="multipart/form-data">
+      <label for="pic">Please upload an image of the item you found if available.</label>
+      <br/>
+      <input type="file" name="pic" id="fileInput" accept="image/*, application/pdf" onchange="previewImage()"/>
+      <br>
+      <img id="previewImg" src="{{url_for('static', filename='noimageavailable.jpeg')}}" alt="Image preview" style="display: none; max-width: 550px; max-height: 2000px;">
+      <br/><br>
+
+      <p>What item did you find?</p>
+        <textarea rows="1" name="name" id="name" class="form-control fixed" placeholder="Wallet,Hostel Key,etc.." >{{itemname}}</textarea>
+        <br/>
+
+      <p>Item Description</p>
+      <textarea rows="10" name="description" id="description" class="form-control fixed" placeholder="Please provide more specific locations on where you found the item and what did you do with it. For example, Found under a desk,gave it to nearest security guard etc." >{{ itemdescription }}</textarea>
+      <br/>
+
+      <p>Where did you find this item?</p>
+      <select name ="location" id="location" class="form-control" required>
+          <option value="" disabled selected>Select the location where you lost the item:</option>
+          <option value="DTC Hall">DTC Hall</option>
+          <option value="CLC">CLC</option>
+          <option value="Library">Library</option>
+          <option value="SSC Building">SCC Building</option>
+          <option value="GYM/Court Building">GYM/Court Building</option>
+          <option value="Learning Point">Learning Point</option>
+          <option value="FCI Building">FCI Building</option>
+          <option value="FOE Building">FOE Building</option>
+          <option value="FCA/FCM/FAC Building">FCA/FCM/FAC Building</option>
+          <option value="FOM Building">FOM Building</option>
+          <option value="Haji Tapah">Haji Tapah</option>
+          <option value="Deen Cafe">Deen Cafe</option>
+          <option value="Starbees">Starbees</option>
+          <option value="HB1">HB1</option>
+          <option value="HB2">HB2</option>
+          <option value="HB3">HB3</option>
+          <option value="HB4">HB4</option>
+          <option value="Surau Hidayah">Surau Hidayah</option>
+      </select><br/>
+
+
+      <div align="center" style="margin: 2%;">
+          <button type="submit" class=" hover-effect block-colour3 base-button">Add Item</button>
+        </div>
+      </form>
+</div>
+
+</div>
+
+{% endblock %}

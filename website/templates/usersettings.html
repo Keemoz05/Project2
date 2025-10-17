@@ -1,0 +1,189 @@
+{% extends "base.html" %} {% block title %}User Settings{% endblock %} {% block content
+  %}
+  
+  
+  <div class="rounded-top text-light title-colour3 " style="padding-top: 5px; padding-bottom: 5px; margin-top: 2%;" >
+  
+    <div  class="">
+        <h1 align="center" style="font-weight: bold;">⚙️ User Settings </h1>
+    </div>
+  </div>
+  
+
+  <div class="container-fluid rounded-bottom border text-center" style="background-color: white; padding-bottom: 2%; margin-bottom: 2%;">
+  <!--Grid-->
+
+  <!--Place other profile Info Here-->
+  <form method="POST">
+    <br>
+
+    <h3>View or change your details.</h3>
+    </br>
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        value="{{ email }}"
+        name="email"
+        placeholder="Enter email"
+      />
+    </div>
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input
+        type="text"
+        class="form-control"
+        value="{{ first_name }}"
+        id="firstName"
+        name="firstName"
+        placeholder="Enter first name"
+      />
+    </div>
+    <div class="form-group">
+      <label for="contactinfo">How do you want people to contact you?</label>
+      <input
+        type="text"
+        class="form-control"
+        value="{{ contactinfo }}"
+        id="contactinfo"
+        name="contactinfo"
+        placeholder="Your phone number,email,Discord username, etc.."
+      />
+    </div>
+    <div class="form-group">
+      <label for="password">Change Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        name="password"
+        placeholder="New password Here..."
+      />
+    </div>
+    <button type="submit" class="title-colour3 base-button hover-effect">Save</button>
+  </form>
+
+  <!--No profile info past here-->
+    <div class="fade-in" style="margin-top: 1%;">
+    <button id="showbutton" class="collapsible" onclick="toggleContent(this)"
+    style="width: 100%;"
+    >
+      <b>Your Report</b>
+      <span class="arrow down"></span>
+    </button>
+    <div class="content rounded" >
+    <div class="row" >
+       
+
+      <div class="col-md-6 col-xs-12 " style="padding-bottom: 2%;">
+        <!--Grid for Lost Item-->
+  
+        <div class="  ">
+          <h4  class="border border-dark rounded-top text-light fade-in block-colour2" style=" padding-bottom: 4px; margin-bottom: 0%; margin-top: 2%;">My Lost Items</h4>
+        </div>
+  
+  
+        <div class="fade-in" style=" margin-top: 0%;">
+          <ul class="list-group list-group-flush" id="notes">
+            {% for lostitem in user.lost_item %}
+            <div class="lost-item-container hover-effect rounded border border-dark" style="margin-bottom: 1%; background-color: white;">
+            <div class="row" >
+              {% if lostitem.image_file == "" %}
+              <img src="{{ replacementimage }}" class="img-fluid col-md-4" style="width: auto; height: auto;">
+              {% else %}
+              <img src="data:image/png;base64,{{lostitem.image_file.decode('utf-8')}}" class="img-fluid col-md-4" style="width: auto; height: auto;">
+              {% endif %}
+            <li class="list-group-item col-md-5">
+              
+            <b class="bold-colour">Item: </b> {{lostitem.name}}  <!-- place lostitem,data here-->
+            </br>
+            <b class="bold-colour">Location:</b>
+            </br>
+            {{ lostitem.location }}
+            </br>
+  
+
+            </li> 
+           <!--Button for directing to the next page. Only edit content inside div-->
+          <div class="col-md-1 " style="margin-top: 4%; margin-bottom: 5%; z-index: 1;">
+            <button class="button-check" style="padding: 40%" onclick="window.location.href='/lostitem/{{lostitem.id}}';">View Item</button>
+          </div>
+
+          <div class="col-1 closing-button">
+            <button type="button" class="close" onClick="deleteLostItem({{ lostitem.id }})" style="color: red;">
+              <!-- Ignore this error. It is caused by javascript usage in html which is not supported.-->
+              <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+
+          </div>
+          </div>
+            
+            {% endfor %}
+          </ul>
+        </div>
+  
+    
+      </div>
+  
+  
+  
+      <div class="col-md-6 col-xs-12 ">
+        <!--Grid for Found Item-->
+  
+        <div>
+          <h4 class="border border-dark rounded-top text-light fade-in block-colour3" style=" padding-bottom: 4px; margin-bottom: 0%; margin-top: 2%;">My Found Items</h4>
+        </div>
+  
+        <div class="fade-in" style="margin-top: 0%;">
+          <ul class="list-group list-group-flush" id="notes">
+            {% for founditem in user.found_item %}
+            <div class="lost-item-container hover-effect rounded border border-dark" style="margin-bottom: 1%; background-color: white;">
+            <div class="row">
+              {% if founditem.image_file == "" %}
+              <img src="{{ replacementimage }}" class="img-fluid col-md-4" style="width: auto; height: auto;">
+              {% else %}
+              <img src="data:image/png;base64,{{founditem.image_file.decode('utf-8')}}" class="img-fluid col-md-4" style="width: auto; height: auto;">
+              {% endif %}            
+              <li class="list-group-item col-md-5">
+            <b class="bold-colour1">Item:</b> {{founditem.name}}  <!-- place lostitem,data here-->
+            </br>
+           <b class="bold-colour1">Location:</b> 
+           </br>
+           {{founditem.location}} <!-- place lostitem,data here-->
+          </br>
+
+          </li>
+          <!--Button for directing to the next page. Only edit content inside div-->
+          <div class="col-1" style="margin-top: 4%; z-index: 1;">
+            <button class="button-check" style="padding: 40%" onclick="window.location.href='/founditem/{{founditem.id}}';">View Item</button>
+          </div>
+          
+          <div class="col-1 closing-button">
+          <button type="button" class="close" onClick="deleteFoundItem({{ founditem.id }})" style="color: red;">
+            <!-- Ignore this error. It is caused by javascript usage in html which is not supported.-->
+            <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+
+          </div>
+          </div>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+  
+  
+      </div>
+    </div>
+  
+  
+    </div>
+ 
+  </div>
+
+  
+  {% endblock %}
+  

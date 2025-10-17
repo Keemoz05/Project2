@@ -1,0 +1,6 @@
+flask
+Flask-SQLAlchemy
+flask-login
+gunicorn
+flask-session
+pytz
